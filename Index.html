@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>英語單字特訓班</title>
+<style>
+:root{
+  --bg:#fff7ea; --ink:#1f2a44; --muted:#6b7280; --card:#ffffff; --line:#eadfcb;
+  --primary:#2f6fde; --primary-soft:#e6efff; --green:#1f9d57; --green-soft:#dcf5e6;
+  --red:#d93f44; --red-soft:#fde3e3; --orange:#ef8a00; --purple:#7357f6; --teal:#0e9785;
+  --radius:18px; --shadow:0 6px 18px rgba(31,42,68,.08);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:17px;line-height:1.55;min-height:100vh}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+input,select{font:inherit;color:inherit}
+[hidden]{display:none!important}
+.wrap{max-width:920px;margin:0 auto;padding:16px 16px 48px}
+header.top{display:flex;align-items:center;gap:12px;justify-content:space-between;padding:10px 16px;background:#fff;border-bottom:2px solid var(--line);position:sticky;top:0;z-index:5}
+.brand{font-weight:800;font-size:20px;display:flex;align-items:center;gap:8px}
+.brand .logo{width:34px;height:34px;border-radius:10px;background:var(--orange);color:#fff;display:grid;place-items:center;font-size:18px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:var(--primary-soft);color:var(--primary);font-weight:700;font-size:15px}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;border:1px solid var(--line)}
+h1{font-size:26px;margin:4px 0 6px}
+h2{font-size:20px;margin:0 0 12px}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.center{justify-content:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stack>*+*{margin-top:14px}
+.btn{padding:11px 20px;border-radius:12px;font-weight:700;background:#f1ece2;transition:transform .08s}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--primary);color:#fff}
+.btn.orange{background:var(--orange);color:#fff}
+.btn.green{background:var(--green);color:#fff}
+.btn.ghost{background:#fff;border:2px solid var(--line)}
+.btn.big{padding:14px 28px;font-size:19px}
+.link{color:var(--primary);text-decoration:underline;font-size:15px}
+label.f{display:block;font-weight:700;margin-bottom:4px}
+.inp{width:100%;padding:12px 14px;border-radius:12px;border:2px solid var(--line);background:#fff;font-size:18px}
+.inp:focus{outline:none;border-color:var(--primary)}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{padding:8px 14px;border-radius:999px;border:2px solid var(--line);background:#fff;font-weight:700;font-size:15px}
+.pill.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.modes{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.mode{border-radius:var(--radius);padding:18px;color:#fff;text-align:left;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:4px;min-height:120px;transition:transform .1s}
+.mode:hover{transform:translateY(-2px)}
+.mode .ic{font-size:32px;line-height:1}
+.mode b{font-size:20px}
+.mode span{opacity:.92;font-size:15px}
+.m-listen{background:var(--purple)} .m-match{background:var(--teal)} .m-spell{background:var(--orange)} .m-choice{background:var(--primary)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}
+.stat b{display:block;font-size:24px}
+.stat span{font-size:13px;color:var(--muted)}
+.lb li{display:flex;justify-content:space-between;padding:7px 4px;border-bottom:1px dashed var(--line)}
+.lb ol{margin:0;padding:0;list-style:none}
+.lb .rk{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#f1ece2;font-weight:800;font-size:14px;margin-right:8px}
+.lb li:nth-child(1) .rk{background:#ffd24d} .lb li:nth-child(2) .rk{background:#d9dee8} .lb li:nth-child(3) .rk{background:#f0b98a}
+.lb li.me{background:var(--primary-soft);border-radius:8px}
+/* game */
+.hud{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.hud .title{font-weight:800;font-size:18px;margin-right:auto}
+.bar{height:10px;border-radius:99px;background:#efe6d6;overflow:hidden;margin-bottom:16px}
+.bar i{display:block;height:100%;background:var(--green);width:0;transition:width .3s}
+.combo{background:#fff0dc;color:var(--orange)}
+.hint{text-align:center;color:var(--muted);margin:0 0 12px}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.col{display:flex;flex-direction:column;gap:10px}
+.tile{background:#fff;border:3px solid var(--line);border-radius:14px;padding:12px;min-height:64px;display:flex;align-items:center;justify-content:center;gap:8px;flex-direction:column;font-weight:700;transition:all .15s}
+.tile .en{font-size:20px}
+.tile .zh{font-size:18px}
+.tile small{color:var(--muted);font-weight:400}
+.tile.spk{flex-direction:row}
+.tile .big{font-size:26px}
+.tile .num{font-size:14px;color:var(--muted)}
+.tile.sel{border-color:var(--primary);background:var(--primary-soft);transform:scale(1.02)}
+.tile.done{border-color:var(--green);background:var(--green-soft);color:var(--green);cursor:default}
+.tile.bad{border-color:var(--red);background:var(--red-soft)}
+.shake{animation:shake .35s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.qcard{background:#fff;border-radius:var(--radius);border:1px solid var(--line);box-shadow:var(--shadow);padding:24px 20px;text-align:center}
+.spkbtn{width:72px;height:72px;border-radius:50%;background:var(--primary);color:#fff;font-size:32px;box-shadow:0 4px 0 #1d4fae}
+.spkbtn.slow{width:56px;height:56px;font-size:24px;background:var(--teal);box-shadow:0 4px 0 #0a6b5e}
+.spkbtn:active{transform:translateY(3px);box-shadow:none}
+.zh-big{font-size:30px;font-weight:800;margin:14px 0 2px}
+.en-big{font-size:38px;font-weight:800;margin:10px 0 2px;letter-spacing:.5px}
+.meta{color:var(--muted)}
+.kk{font-family:"Lucida Sans Unicode","Arial Unicode MS",sans-serif}
+.label{font-weight:700;color:var(--muted)}
+.sent{font-size:20px;margin:14px auto 4px;max-width:620px;line-height:1.7}
+.sent.big{font-size:23px}
+.sent .blank{display:inline-block;min-width:80px;border-bottom:3px solid var(--ink);margin:0 4px;color:var(--green);font-weight:800}
+.sent-zh{color:var(--muted);font-size:16px}
+.slots{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin:18px 0 10px}
+.slot{width:38px;height:46px;border-bottom:4px solid #c9bda8;font-size:26px;font-weight:800;display:grid;place-items:center;background:#fbf7ef;border-radius:8px 8px 0 0}
+.slot.filled{border-color:var(--primary)}
+.slot.ok{border-color:var(--green);color:var(--green)}
+.gap{width:18px}
+.slot.fixed{background:none;border-bottom-color:transparent;color:var(--ink)}
+.blankslot{border:0;border-bottom:4px solid #c9bda8;color:var(--primary);cursor:pointer}
+.blankslot.cur{border-bottom-color:var(--orange);background:#fff0dc;box-shadow:0 0 0 3px #ffd9a8 inset}
+.blankslot.badslot{border-bottom-color:var(--red);background:var(--red-soft)}
+.blankslot.ok{color:var(--green)}
+.blankslot.shown{color:var(--red)}
+.keypad{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin:14px auto 4px;max-width:520px}
+.key{width:64px;height:64px;border-radius:14px;background:#fff;border:3px solid var(--line);font-size:30px;font-weight:800;box-shadow:0 4px 0 #e2d6c1;touch-action:manipulation;user-select:none}
+.key:active{transform:translateY(3px);box-shadow:none}
+.key.del{background:#f1ece2;font-size:24px}
+.msg{min-height:30px;margin:10px 0;font-weight:700}
+.msg.ok{color:var(--green)} .msg.no{color:var(--red)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.opt{background:#fff;border:3px solid var(--line);border-radius:14px;padding:14px;font-size:19px;font-weight:700;text-align:left;display:flex;gap:10px;align-items:center}
+.opt .k{display:inline-grid;place-items:center;min-width:28px;height:28px;border-radius:8px;background:#f1ece2;font-size:14px}
+.opt:hover:not(:disabled){border-color:var(--primary)}
+.opt.right{border-color:var(--green);background:var(--green-soft)}
+.opt.wrongpick{border-color:var(--red);background:var(--red-soft)}
+.opt:disabled{cursor:default}
+.spk-inline{font-size:26px;vertical-align:middle}
+.float{position:fixed;font-weight:900;font-size:26px;color:var(--orange);pointer-events:none;animation:up 1s forwards;z-index:50;text-shadow:0 2px 0 #fff}
+@keyframes up{to{transform:translateY(-70px);opacity:0}}
+.toast{position:fixed;left:50%;top:80px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:12px;font-weight:700;z-index:60;animation:fade 2.2s forwards}
+@keyframes fade{0%{opacity:0}10%,80%{opacity:1}100%{opacity:0}}
+/* result */
+.stars{font-size:54px;letter-spacing:6px;margin:6px 0}
+.stars .off{filter:grayscale(1);opacity:.3}
+.res-nums{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
+.wlist{list-style:none;padding:0;margin:0;text-align:left}
+.wlist li{display:flex;align-items:center;gap:10px;padding:8px 6px;border-bottom:1px dashed var(--line)}
+.wlist b{font-size:18px}
+.status{font-size:14px;margin-top:8px}
+.confetti{position:fixed;top:-12px;width:10px;height:14px;z-index:70;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+/* teacher */
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{background:#fbf3e4;position:sticky;top:0;cursor:pointer}
+.tbl{max-height:460px;overflow:auto;border:1px solid var(--line);border-radius:12px}
+.tag{display:inline-block;padding:2px 8px;border-radius:8px;font-weight:700;font-size:13px}
+.tag.low{background:var(--red-soft);color:var(--red)} .tag.mid{background:#fff0dc;color:var(--orange)} .tag.hi{background:var(--green-soft);color:var(--green)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.missbar{display:grid;grid-template-columns:150px 1fr 40px;gap:8px;align-items:center;font-size:15px;margin:5px 0}
+.missbar i{display:block;height:12px;border-radius:6px;background:var(--red)}
+footer.foot{text-align:center;margin-top:26px;display:flex;justify-content:center;gap:18px;flex-wrap:wrap}
+@media (max-width:640px){
+  .modes,.grid2,.opts{grid-template-columns:1fr}
+  .kpis,.res-nums{grid-template-columns:repeat(2,1fr)}
+  .en-big{font-size:30px} .zh-big{font-size:24px}
+  .slot{width:30px;height:40px;font-size:22px}
+  .missbar{grid-template-columns:110px 1fr 34px}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="logo">A</span>英語單字特訓班</div>
+  <div class="row">
+    <span class="chip" id="hdrPts" hidden>⭐ 0</span>
+    <span class="chip" id="hdrNet" title="雲端連線狀態">☁️ 檢查中</span>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- 登入 -->
+<section class="screen" id="login">
+  <div class="card stack" style="max-width:480px;margin:30px auto">
+    <div>
+      <h1>👋 歡迎來練單字！</h1>
+      <div class="muted">輸入班級、座號和姓名，練習紀錄會自動存到老師的試算表。</div>
+    </div>
+    <div class="grid2">
+      <div><label class="f" for="inCls">班級</label><input class="inp" id="inCls" placeholder="例如 801" maxlength="10"></div>
+      <div><label class="f" for="inSeat">座號</label><input class="inp" id="inSeat" type="number" min="1" max="99" placeholder="例如 5"></div>
+    </div>
+    <div><label class="f" for="inName">姓名</label><input class="inp" id="inName" placeholder="你的名字" maxlength="20"></div>
+    <div class="msg no" id="loginMsg"></div>
+    <button class="btn primary big" id="btnLogin" style="width:100%">開始練習 →</button>
+  </div>
+  <footer class="foot"><a href="#" class="link" data-go="teacher">👩‍🏫 教師專區</a></footer>
+</section>
+
+<!-- 首頁 -->
+<section class="screen" id="home" hidden>
+  <div class="row" style="justify-content:space-between;margin-bottom:12px">
+    <div><h1 id="hello">嗨！</h1><div class="muted" id="helloSub"></div></div>
+    <button class="btn ghost" id="btnLogout">換人登入</button>
+  </div>
+  <div class="card stack">
+    <div><h2>① 選擇單元</h2><div class="pills" id="unitPills"></div></div>
+    <div><h2>② 題數</h2><div class="pills" id="countPills"></div></div>
+    <div>
+      <h2>③ 選擇練習模式</h2>
+      <div class="modes">
+        <button class="mode m-listen" data-mode="listen"><span class="ic">🎧</span><b>單字聽力配對</b><span>聽發音，配對正確的英文單字</span></button>
+        <button class="mode m-match" data-mode="match"><span class="ic">🧩</span><b>中英意思配對</b><span>英文和中文意思連連看</span></button>
+        <button class="mode m-spell" data-mode="spell"><span class="ic">✍️</span><b>拼字練習</b><span>看中文、聽發音，補上缺少的字母</span></button>
+        <button class="mode m-choice" data-mode="choice"><span class="ic">✅</span><b>單字選擇題</b><span>看意思、例句填空，選出答案</span></button>
+      </div>
+    </div>
+  </div>
+  <div class="grid2" style="margin-top:14px">
+    <div class="card">
+      <h2>📊 我的成績</h2>
+      <div class="stats">
+        <div class="stat"><b id="stPts">0</b><span>累積點數</span></div>
+        <div class="stat"><b id="stToday">0</b><span>今天練習次數</span></div>
+        <div class="stat"><b id="stWrong">0</b><span>錯題本單字</span></div>
+      </div>
+      <div class="small muted" style="margin-top:10px">💡 答錯的單字會進「錯題本」，答對就會慢慢消失。</div>
+    </div>
+    <div class="card lb">
+      <div class="row" style="justify-content:space-between"><h2 style="margin:0">🏆 本週排行榜</h2>
+        <div class="pills"><button class="pill on" data-lb="cls">本班</button><button class="pill" data-lb="all">全部</button></div></div>
+      <div id="lbBox" style="margin-top:8px" class="muted small">載入中…</div>
+    </div>
+  </div>
+  <footer class="foot"><a href="#" class="link" data-go="settings">⚙️ 設定（音效）</a><a href="#" class="link" data-go="teacher">👩‍🏫 教師專區</a></footer>
+</section>
+
+<!-- 遊戲 -->
+<section class="screen" id="game" hidden>
+  <div class="hud">
+    <span class="title" id="gTitle">練習</span>
+    <span class="chip" id="gProg">1 / 10</span>
+    <span class="chip">⏱ <span id="gTime">0:00</span></span>
+    <span class="chip">⭐ <span id="gPts">0</span></span>
+    <span class="chip combo" id="gCombo" hidden>🔥 0</span>
+    <button class="btn ghost" id="btnQuit">離開</button>
+  </div>
+  <div class="bar"><i id="gBar"></i></div>
+  <div id="area"></div>
+</section>
+
+<!-- 結果 -->
+<section class="screen" id="result" hidden>
+  <div class="card" style="text-align:center">
+    <div class="stars" id="rStars"></div>
+    <h1 id="rTitle">完成！</h1>
+    <div class="muted" id="rSub"></div>
+    <div class="res-nums">
+      <div class="stat"><b id="rAcc">0%</b><span>正確率</span></div>
+      <div class="stat"><b id="rCorrect">0/0</b><span>答對</span></div>
+      <div class="stat"><b id="rPts">0</b><span>得到點數</span></div>
+      <div class="stat"><b id="rTime">0:00</b><span>用時</span></div>
+    </div>
+    <div id="rWrongBox">
+      <h2 style="text-align:left">📕 要再加強的單字</h2>
+      <ul class="wlist" id="rWrong"></ul>
+    </div>
+    <div class="row center" style="margin-top:18px">
+      <button class="btn orange big" id="btnRetryWrong">🔁 錯的再練一次</button>
+      <button class="btn primary big" id="btnAgain">再玩一次</button>
+      <button class="btn ghost big" id="btnHome">回首頁</button>
+    </div>
+    <div class="status muted" id="rStatus"></div>
+  </div>
+</section>
+
+<!-- 設定 -->
+<section class="screen" id="settings" hidden>
+  <div class="card stack" style="max-width:560px;margin:20px auto">
+    <h1>⚙️ 設定</h1>
+    <div><label class="row"><input type="checkbox" id="mute"> 關閉答對／答錯音效</label></div>
+    <div id="urlBox">
+      <label class="f" for="gasUrl">雲端資料庫網址（Google Apps Script 網頁應用程式網址）</label>
+      <input class="inp" id="gasUrl" placeholder="https://script.google.com/macros/s/……/exec">
+      <div class="small muted" style="margin-top:4px">只有在「不是從 Apps Script 網址開啟」這個網頁時才需要填。這台電腦填一次就會記住。</div>
+      <div class="row" style="margin-top:8px"><button class="btn primary" id="btnSaveUrl">儲存並測試連線</button><span id="urlMsg" class="small"></span></div>
+    </div>
+    <button class="btn ghost" data-back>← 返回</button>
+  </div>
+</section>
+
+<!-- 教師 -->
+<section class="screen" id="teacher" hidden>
+  <div class="card stack" id="tLogin" style="max-width:440px;margin:30px auto">
+    <h1>👩‍🏫 教師專區</h1>
+    <div><label class="f" for="tPw">教師密碼</label><input class="inp" id="tPw" type="password" placeholder="在 Code.gs 設定的密碼"></div>
+    <div class="msg no" id="tMsg"></div>
+    <div class="row"><button class="btn primary" id="btnTLogin">進入</button><button class="btn ghost" data-back>← 返回</button></div>
+  </div>
+  <div id="tDash" hidden>
+    <div class="row" style="justify-content:space-between;margin-bottom:12px">
+      <h1>📈 學習狀況總覽</h1>
+      <div class="row">
+        <select class="inp" id="tDays" style="width:auto"><option value="7">最近 7 天</option><option value="30" selected>最近 30 天</option><option value="90">最近 90 天</option><option value="365">最近一年</option></select>
+        <select class="inp" id="tCls" style="width:auto"></select>
+        <button class="btn primary" id="btnTReload">重新整理</button>
+      </div>
+    </div>
+    <div class="kpis" id="tKpis"></div>
+    <div class="card" style="margin-top:14px">
+      <h2>👥 學生練習狀況 <span class="small muted">（點欄位標題可排序；正確率低於 60% 標紅）</span></h2>
+      <div class="tbl"><table id="tStu"></table></div>
+    </div>
+    <div class="grid2" style="margin-top:14px">
+      <div class="card"><h2>❌ 最常答錯的單字</h2><div id="tMiss" class="small"></div></div>
+      <div class="card"><h2>🎮 各模式表現</h2><div class="tbl"><table id="tMode"></table></div></div>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h2>🕒 最近 40 筆紀錄</h2>
+      <div class="tbl"><table id="tRecent"></table></div>
+    </div>
+    <div class="card stack" style="margin-top:14px">
+      <h2>🛠 工具</h2>
+      <div class="row">
+        <a class="btn ghost" id="tSheetLink" target="_blank" rel="noopener" hidden>📄 開啟雲端試算表</a>
+        <button class="btn ghost" id="btnSeed">把內建單字（Unit 5、6）寫入「單字庫」工作表</button>
+        <button class="btn ghost" id="btnTOut">登出教師專區</button>
+      </div>
+      <div class="small muted">寫入「單字庫」後，可以直接在試算表新增 Unit 7、Unit 8 … 的單字，學生重新整理網頁就會看到新單元。例句請用 [ ] 框住要挖空的字，例如：I go to school by [bike].</div>
+      <div class="small" id="seedMsg"></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+/* =========================================================
+   英語單字特訓班
+   - 從 Apps Script 網址開啟：自動用 google.script.run 存取試算表
+   - 其他方式開啟：到「設定」貼上 Apps Script 網頁應用程式網址
+   ========================================================= */
+const DEFAULT_GAS_URL = ''; // 也可以直接把網頁應用程式網址貼在這裡
+const IN_GAS = (typeof google !== 'undefined') && google.script && google.script.run;
+
+/* ---------- 內建單字（翰林版 二上 Unit 5、Unit 6）----------
+   [單字, 音標, 詞性, 中文, 例句（[ ] 為挖空處）, 例句中文] */
+const RAW_UNITS = {
+ 'Unit 5': { title:'How Do We Go to the Hotel?', list:[
+  ['metro','ˋmɛtro','n.','捷運；地鐵','They went to the museum by [metro].','他們搭地鐵去那間博物館。'],
+  ['lost','lɔst','adj.','迷路的；走失的','The little boy was [lost] in the forest.','小男孩在森林裡迷路了。'],
+  ['map','mæp','n.','地圖','Can you find your school on the [map]?','你可以在地圖上找到你的學校嗎？'],
+  ['ask','æsk','v.','請求；詢問','The teacher [asked] the students to stand up.','老師要求學生們起立。'],
+  ['Excuse me.','ɪkˋskjuz ͵mi','phr.','請問；不好意思','[Excuse me] for a second. I need to use the bathroom.','不好意思我離開一下。我得去洗手間。'],
+  ['straight','stret','adv./adj.','直地；直的','The girl’s hair is long and [straight].','那個女孩的頭髮又長又直。'],
+  ['turn left','͵tɝn ˋlɛft','phr.','向左轉','[Turn left] at the supermarket and go straight for one block.','在超市左轉，然後直走一個街區。'],
+  ['along','əˋlɔŋ','prep.','沿著；順著','The workers planted trees [along] the street.','工人們沿著這條街種樹。'],
+  ['block','blɑk','n.','街區','You need to go along the street for two [blocks] to get to the hotel.','你需要沿著這條街走兩個街區才能抵達飯店。'],
+  ['corner','ˋkɔrnɚ','n.','轉角；角落','The metro station is just around the [corner].','地鐵站就在附近。'],
+  ['across from','əˋkrɔs frəm','phr.','在……的對面','The theater is [across from] the market.','戲院在市場的對面。'],
+  ['supermarket','ˋsupɚ͵mɑrkɪt','n.','超市','Does the [supermarket] sell dog food?','這間超市有賣狗食嗎？'],
+  ['ground','graʊnd','n.','地面','The car fell into the big hole in the [ground].','那輛車子掉進了地上的大坑洞裡。'],
+  ['sir','sɝ','n.','先生（稱呼）','Excuse me, [sir]. Is this your umbrella?','不好意思，先生。這是你的雨傘嗎？'],
+  ['on foot','ɑn ˋfʊt','phr.','步行；徒步','Are you going by bike or [on foot]?','你要騎腳踏車去還是走路去？'],
+  ['take','tek','v.','搭乘（交通工具）','Did you [take] a bus to work this morning?','你今天早上是搭公車去上班的嗎？'],
+  ['by','baɪ','prep.','搭乘；藉由……方式','I went to the island [by] boat.','我搭船去了那座島嶼。'],
+  ['get off','͵gɛt ˋɔf','phr.','下（車、飛機等）','Lucas [got off] the train ten minutes ago.','盧卡斯十分鐘前下了火車。'],
+  ['get','gɛt','v.','到達；抵達','We [got] to Taipei at about 8 a.m.','我們大約早上八點抵達臺北。'],
+  ['right','raɪt','n./adj./adv.','右邊（的）；向右','The bathroom is on your [right].','廁所在你的右手邊。'],
+  ['ship','ʃɪp','n.','輪船；大船','The [ship] is traveling across the sea.','這艘船正在穿越大海。'],
+  ['taxi','ˋtæksɪ','n.','計程車','Grace went to the restaurant by [taxi].','葛瑞絲搭計程車到餐廳。'],
+  ['bike','baɪk','n.','單車；腳踏車','Mary often goes to school by [bike].','瑪莉時常騎腳踏車上學。'],
+  ['motorcycle','ˋmotɚ͵saɪkḷ','n.','摩托車（跨坐式）','My aunt rode a [motorcycle] to the park.','我阿姨騎摩托車去公園。'],
+  ['scooter','ˋskutɚ','n.','機車（有腳踏板）','Many people go to work by [scooter] in Taiwan.','在臺灣，許多人騎機車上班。'],
+  ['bank','bæŋk','n.','銀行；河岸','The [bank] is next to a fast food restaurant.','銀行在一間速食餐廳旁邊。'],
+  ['fire station','ˋfaɪr ͵steʃən','n.','消防局','The [fire station] is next to the police station.','那間消防局在警察局的旁邊。'],
+  ['toy','tɔɪ','n.','玩具','When I was a kid, I liked playing with [toys].','我小時候喜歡玩玩具。'],
+  ['post office','ˋpost ͵ɔfɪs','n.','郵局','[Post offices] in Taiwan close at 5 p.m.','臺灣的郵局下午五點關門。'],
+  ['hospital','ˋhɑspɪtḷ','n.','醫院','Jack is in the [hospital] because he is sick.','傑克因為生病而住院了。'],
+  ['pool','pul','n.','水池；游泳池','They have a large [pool] behind their house.','他們房子後面有一座很大的泳池。'],
+  ['go jogging','go ˋdʒɑgɪŋ','phr.','去慢跑','Sam sometimes [goes jogging] around the park after work.','山姆有時下班後會繞著公園慢跑。'],
+  ['go sailing','go ˋselɪŋ','phr.','去玩帆船；航行','We [went sailing] at the beach near the hotel.','我們去飯店附近的海邊玩帆船。'],
+  ['go surfing','go ˋsɝfɪŋ','phr.','去衝浪','Jenny loves to [go surfing] on hot summer days.','珍妮非常喜歡在炎炎夏日時去衝浪。'],
+  ['fly','flaɪ','v.','飛行；搭飛機','They [flew] to New York three days ago.','他們三天前搭飛機去了紐約。'],
+  ['bus stop','ˋbʌs ͵stɑp','n.','公車站','There’s a [bus stop] near my school.','我學校附近有個公車站牌。'],
+  ['go biking','go ˋbaɪkɪŋ','phr.','去騎單車','Let’s [go biking] along the river bank.','我們沿著河岸騎腳踏車吧。'],
+  ['go shopping','go ˋʃɑpɪŋ','phr.','去購物；逛街','Many people [go shopping] at the department store on weekends.','許多人在週末到這家百貨公司購物。'],
+  ['hit','hɪt','v./n.','碰撞；打擊','She fell and [hit] her head on the ground.','她跌倒，頭撞到地面。'],
+  ['sound','saʊnd','n.','聲音；聲響','I heard a [sound] from the box.','我聽到一個聲音從箱子裡傳出來。'],
+  ['bell','bɛl','n.','鐘；鈴','The students went back to their classrooms after they heard the [bell].','學生們聽到鐘聲後回到了他們的教室。'],
+  ['experience','ɪkˋspɪrɪəns','n./v.','經驗；經歷','My trip to the US was a great [experience].','我的美國之旅是一段很棒的經歷。'],
+  ['wonderful','ˋwʌndɚfəl','adj.','美好的；極好的','We had a [wonderful] weekend at the beach.','我們在海灘度過了一個美好的週末。'],
+  ['play','ple','n.','戲劇；劇本','Lisa signed up for the school [play].','麗莎報名參加學校的戲劇演出。'],
+  ['around','əˋraʊnd','adv.','大約','There are [around] 500 students at the school.','這間學校大約有五百名學生。']
+ ]},
+ 'Unit 6': { title:'I’ll Take Two Pairs of Gloves', list:[
+  ['will','wɪl','aux.','將；會','Jonathan [will] visit his sister in May.','喬納森五月的時候會去拜訪他妹妹。'],
+  ['ugly','ˋʌglɪ','adj.','醜的','A lot of houses here are [ugly].','這裡許多房屋都很醜陋。'],
+  ['sweater','ˋswɛtɚ','n.','毛衣','That blue [sweater] is too small for Ross.','那件藍色的毛衣對羅斯來說太小了。'],
+  ['tonight','təˋnaɪt','adv./n.','今晚','[Tonight] will be rainy.','今晚將下雨。'],
+  ['funny','ˋfʌnɪ','adj.','滑稽的；好笑的','I saw a [funny] video on YouTube.','我在 YouTube 上看到一支搞笑影片。'],
+  ['cost','kɔst','v./n.','價錢為；費用','The coat [costs] three thousand dollars.','那件大衣要價三千元。'],
+  ['price','praɪs','n.','價格','The store sells clothes at low [prices].','那家商店以低廉的價格賣衣服。'],
+  ['spend','spɛnd','v.','花費（時間、金錢）','Sam [spends] a lot of money on food every month.','山姆每個月在食物上花很多錢。'],
+  ['expensive','ɪkˋspɛnsɪv','adj.','昂貴的','He moved out of the city because it’s [expensive] to live there.','他搬離那座城市，因為住那裡很昂貴。'],
+  ['on sale','ɑn ˋsel','phr.','特價中','Everything in the store is now [on sale].','現在店裡的每樣東西都在特價中。'],
+  ['pair','pɛr','n.','一雙；一對','How much does the [pair] of socks cost?','這雙襪子賣多少錢？'],
+  ['total','ˋtotḷ','n./adj.','總計（的）；全部（的）','The [total] number of students in the class is twenty.','這個班上一共有二十個學生。'],
+  ['pay','pe','v./n.','付錢；工資','Tom [paid] $200 for the cap.','湯姆付了兩百元買這頂帽子。'],
+  ['thousand','ˋθaʊzṇd','n.','千','The phone only costs nine [thousand] NT dollars.','這支手機只賣新臺幣九千元。'],
+  ['tomorrow','təˋmɔro','adv./n.','明天','[Tomorrow] is my sister’s birthday.','明天是我妹妹的生日。'],
+  ['high','haɪ','adj.','高的','House prices are too [high] for many young people.','房價對許多年輕人來說太高了。'],
+  ['save','sev','v.','節省；拯救','To [save] money, I decided to ride a bike to school.','為了省錢，我決定要騎單車去上學。'],
+  ['would like','wʊd ˋlaɪk','phr.','想要','We [would like] to go swimming.','我們想要去游泳。'],
+  ['change','tʃendʒ','n.','找零；零錢','Here is one hundred. Keep the [change].','這裡是一百元。不用找零。'],
+  ['take','tek','v.','花費（時間）','Doing the dishes [took] Mary an hour.','洗碗花了瑪莉一個小時。'],
+  ['dress','drɛs','n./v.','洋裝；打扮','She’s beautiful in that [dress].','她穿那件洋裝真好看。'],
+  ['cap','kæp','n.','鴨舌帽（前有遮簷的帽子）','The girl took off her jacket and [cap] when she got home.','那個女孩回到家，就脫下了夾克和帽子。'],
+  ['shirt','ʃɝt','n.','襯衫','Brian is wearing a blue [shirt] today.','布萊恩今天穿了一件藍色的襯衫。'],
+  ['belt','bɛlt','n.','腰帶；皮帶','I need a [belt] for the pants.','我需要一條搭配這件褲子的腰帶。'],
+  ['jeans','dʒinz','n.','牛仔褲','The two pairs of [jeans] cost $5000.','這兩條牛仔褲售價五千元。'],
+  ['sock','sɑk','n.','襪子','Julian wore two different [socks] to school yesterday.','朱利安昨天穿了兩隻不一樣的襪子去學校。'],
+  ['tie','taɪ','n.','領帶','Dan’s father gave him a [tie] on his first day of work.','丹的父親在他第一天上班時送給他一條領帶。'],
+  ['pants','pænts','n.','長褲','The [pants] are too small for me.','這條褲子對我來說太小了。'],
+  ['shoe','ʃu','n.','鞋子','There is a hole in my left [shoe].','我左腳這隻鞋子有個破洞。'],
+  ['T-shirt','ˋti͵ʃɝt','n.','T 恤','Ellen is wearing a [T-shirt] with her face on it.','艾倫穿著一件有她的臉的 T 恤。'],
+  ['shorts','ʃɔrts','n.','短褲','The students wear [shorts] to school in summer.','學生們夏天穿短褲去學校。'],
+  ['hat','hæt','n.','（有帽簷的）帽子','Who is the woman with the red [hat]?','那位戴紅帽子的女子是誰？'],
+  ['coat','kot','n.','外套；大衣','This brown [coat] is very warm.','這件棕色的外套很溫暖。'],
+  ['skirt','skɝt','n.','裙子','Mia seldom wears a [skirt]; she often wears pants.','米雅不常穿裙子；她常穿長褲。'],
+  ['glasses','ˋglæsɪz','n.','眼鏡','Sam broke his [glasses] when he played basketball.','山姆打籃球時弄破了他的眼鏡。'],
+  ['ring','rɪŋ','n.','戒指；環','The [ring] is a gift from my parents.','這枚戒指是我爸媽送我的禮物。'],
+  ['take off','͵tek ˋɔf','phr.','脫下','It was hot in the room, so I [took off] my jacket.','屋子裡很熱，所以我脫掉夾克。'],
+  ['fast','fæst','adj./adv.','快的；快地','Scarlett runs [fast].','史嘉蕾跑得很快。'],
+  ['low','lo','adj.','低的','The price for the TV is [low].','那臺電視的價格很低。'],
+  ['cheap','tʃip','adj.','便宜的','The eggs are [cheap]. Let’s buy some.','這些雞蛋很便宜。我們買一些吧。'],
+  ['what’s more','(h)wɑts ˋmɔr','phr.','而且；此外','The shirt is beautiful. [What’s more], it’s cheap.','這件襯衫很漂亮。而且還很便宜。'],
+  ['most','most','adj.','大部分的','[Most] toys here are from our students.','這裡大多數的玩具來自我們的學生。'],
+  ['hurt','hɝt','v.','傷害；疼痛','My tooth [hurts]. I need to see a dentist.','我的牙齒痛。我需要去看牙醫。'],
+  ['come off','͵kʌm ˋɔf','phr.','從……脫落','Some sugar [came off] the cookies.','有些糖從餅乾上脫落了。'],
+  ['second','ˋsɛkənd','n.','秒；一下子','Hold on a [second]. What did you just say?','等一下。你剛剛說什麼？']
+ ]}
+};
+
+/* ---------- 小工具 ---------- */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const norm = s => String(s).toLowerCase().replace(/[’‘`]/g, "'").replace(/[.?!,;]/g, '').replace(/\s+/g, ' ').trim();
+const spellKey = s => norm(s).replace(/ /g, '');
+const mmss = sec => Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0');
+const today = () => { const d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); };
+const store = {
+  get(k, d) { try { const v = localStorage.getItem('vocab_' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem('vocab_' + k, JSON.stringify(v)); } catch (e) {} },
+  del(k) { try { localStorage.removeItem('vocab_' + k); } catch (e) {} }
+};
+function toast(t) { const d = document.createElement('div'); d.className = 'toast'; d.textContent = t; document.body.appendChild(d); setTimeout(() => d.remove(), 2300); }
+function floatPts(n, el) {
+  const r = (el || $('#gPts')).getBoundingClientRect();
+  const d = document.createElement('div'); d.className = 'float'; d.textContent = '+' + n;
+  d.style.left = (r.left + r.width / 2 - 20) + 'px'; d.style.top = Math.max(60, r.top) + 'px';
+  document.body.appendChild(d); setTimeout(() => d.remove(), 1000);
+}
+function confetti() {
+  const colors = ['#ef8a00', '#2f6fde', '#1f9d57', '#7357f6', '#ffd24d', '#d93f44'];
+  for (let i = 0; i < 70; i++) {
+    const c = document.createElement('div'); c.className = 'confetti';
+    c.style.left = Math.random() * 100 + 'vw'; c.style.background = pick(colors);
+    c.style.animationDuration = (1.8 + Math.random() * 1.8) + 's'; c.style.animationDelay = (Math.random() * .5) + 's';
+    document.body.appendChild(c); setTimeout(() => c.remove(), 4500);
+  }
+}
+
+/* ---------- 單字資料 ---------- */
+let UNITS = {};
+function loadUnits(raw) {
+  UNITS = {};
+  Object.keys(raw).forEach(k => {
+    UNITS[k] = { title: raw[k].title || '', words: raw[k].list.map(a => ({ id: k + '|' + a[0], unit: k, w: a[0], kk: a[1] || '', pos: a[2] || '', zh: a[3] || '', ex: a[4] || '', exZh: a[5] || '' })) };
+  });
+}
+const allWords = () => Object.values(UNITS).flatMap(u => u.words);
+const wordById = id => allWords().find(w => w.id === id);
+function parseEx(x) { const m = String(x.ex).match(/^(.*?)\[(.+?)\](.*)$/); return m ? { before: m[1], form: m[2], after: m[3] } : null; }
+function formOf(x) { const p = parseEx(x); if (!p) return x.w; let f = p.form; if (/^[A-Z]/.test(f) && /^[a-z]/.test(x.w)) f = f[0].toLowerCase() + f.slice(1); return f; }
+const CONFUSE = [['cap', 'hat'], ['motorcycle', 'scooter'], ['cost', 'spend', 'take', 'pay'], ['bike', 'go biking'], ['take', 'take off'], ['get', 'get off']];
+function conflict(a, b) {
+  if (a.id === b.id) return true;
+  const x = norm(a.w), y = norm(b.w);
+  if (x === y || a.zh === b.zh) return true;
+  return CONFUSE.some(g => g.includes(x) && g.includes(y));
+}
+function chunkRounds(list, size) {
+  let rest = list.slice(); const rounds = [];
+  while (rest.length) {
+    const r = [], skip = [];
+    for (const w of rest) { if (r.length < size && !r.some(o => conflict(o, w))) r.push(w); else skip.push(w); }
+    if (!r.length) r.push(skip.shift());
+    rounds.push(r); rest = skip;
+  }
+  // 最後一回合太少時，併入前一回合（不衝突才併）
+  if (rounds.length > 1 && rounds[rounds.length - 1].length < 3) {
+    const last = rounds.pop(), prev = rounds[rounds.length - 1];
+    last.forEach(w => { if (prev.length < size + 2 && !prev.some(o => conflict(o, w))) prev.push(w); else rounds.push([w]); });
+  }
+  return rounds;
+}
+function pickDistractors(target, pool, n, keyFn) {
+  const out = [];
+  const tryAdd = list => { for (const w of shuffle(list)) { if (out.length >= n) break; if (conflict(w, target) || keyFn(w) === keyFn(target)) continue; if (out.some(o => conflict(o, w) || keyFn(o) === keyFn(w))) continue; out.push(w); } };
+  tryAdd(pool); if (out.length < n) tryAdd(allWords());
+  return out;
+}
+
+/* ---------- 發音與音效 ---------- */
+let voice = null;
+function pickVoice() {
+  const vs = speechSynthesis.getVoices();
+  voice = vs.find(v => /en[-_]US/i.test(v.lang) && /Google|Samantha|Aria|Jenny|Natural/i.test(v.name)) || vs.find(v => /en[-_]US/i.test(v.lang)) || vs.find(v => /^en/i.test(v.lang)) || null;
+}
+if ('speechSynthesis' in window) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function speak(text) {
+  if (!('speechSynthesis' in window)) { toast('這個瀏覽器不支援發音，請改用 Chrome'); return; }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(String(text).replace(/[\[\]]/g, ''));
+  u.lang = 'en-US'; if (voice) u.voice = voice;
+  u.rate = 1;
+  speechSynthesis.speak(u);
+}
+let actx = null;
+function sfx(ok) {
+  if (store.get('mute', false)) return;
+  try {
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    const t = actx.currentTime, notes = ok ? [660, 990] : [220, 165];
+    notes.forEach((f, i) => {
+      const o = actx.createOscillator(), g = actx.createGain(), s = t + i * 0.09;
+      o.type = ok ? 'sine' : 'square'; o.frequency.value = f;
+      g.gain.setValueAtTime(0.0001, s); g.gain.exponentialRampToValueAtTime(ok ? 0.18 : 0.06, s + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, s + 0.18);
+      o.connect(g); g.connect(actx.destination); o.start(s); o.stop(s + 0.2);
+    });
+  } catch (e) {}
+}
+
+/* ---------- 雲端（Google Apps Script）---------- */
+function gasUrl() {
+  try { const q = new URLSearchParams(location.search).get('api'); if (q && /^https:\/\/script\.google\.com\//.test(q)) store.set('gasUrl', q); } catch (e) {}
+  return store.get('gasUrl', DEFAULT_GAS_URL) || '';
+}
+const hasBackend = () => !!(IN_GAS || gasUrl());
+function api(action, payload) {
+  payload = payload || {};
+  if (IN_GAS) return new Promise((res, rej) => google.script.run.withSuccessHandler(res).withFailureHandler(rej).api(action, payload));
+  const url = gasUrl();
+  if (!url) return Promise.reject(new Error('尚未設定雲端網址'));
+  return fetch(url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(Object.assign({ action }, payload)) }).then(r => r.json());
+}
+function setNet(state) {
+  const el = $('#hdrNet');
+  el.textContent = state === 'ok' ? '☁️ 已連線' : state === 'off' ? '📴 離線模式' : state === 'err' ? '⚠️ 連線失敗' : '☁️ 檢查中';
+  el.style.background = state === 'ok' ? 'var(--green-soft)' : state === 'checking' ? '' : 'var(--red-soft)';
+  el.style.color = state === 'ok' ? 'var(--green)' : state === 'checking' ? '' : 'var(--red)';
+}
+async function flushPending() {
+  const q = store.get('pending', []);
+  if (!q.length || !hasBackend()) return { sent: 0, left: q.length };
+  let sent = 0;
+  while (q.length) {
+    try { const r = await api('saveRecord', { record: q[0] }); if (!r || !r.ok) throw new Error(r && r.error); q.shift(); sent++; store.set('pending', q); }
+    catch (e) { break; }
+  }
+  return { sent, left: q.length };
+}
+
+/* ---------- 學生狀態 ---------- */
+let STU = store.get('student', null);
+const stuKey = () => STU ? (STU.cls + '-' + STU.seat + '-' + STU.name) : 'guest';
+const getWB = () => store.get('wb_' + stuKey(), {});
+const setWB = v => store.set('wb_' + stuKey(), v);
+const getStat = () => store.get('stat_' + stuKey(), { points: 0, days: {} });
+const setStat = v => store.set('stat_' + stuKey(), v);
+
+const MODE_NAME = { listen: '單字聽力配對', match: '中英意思配對', spell: '拼字練習', choice: '單字選擇題' };
+let SEL = { unit: store.get('unitSel', 'Unit 5'), count: store.get('countSel', 10) };
+let LB_SCOPE = 'cls';
+let G = null;
+
+/* ---------- 畫面切換 ---------- */
+let prevScreen = 'login';
+function show(id) {
+  const cur = $$('.screen').find(s => !s.hidden);
+  if (cur && cur.id !== id && (cur.id === 'login' || cur.id === 'home')) prevScreen = cur.id;
+  $$('.screen').forEach(s => s.hidden = s.id !== id);
+  window.scrollTo(0, 0);
+  if (id === 'settings') openSettings();
+}
+document.addEventListener('click', e => {
+  const go = e.target.closest('[data-go]'); if (go) { e.preventDefault(); show(go.dataset.go); }
+  const back = e.target.closest('[data-back]'); if (back) { e.preventDefault(); STU ? goHome() : show('login'); }
+});
+
+/* ---------- 登入 ---------- */
+function initLogin() {
+  if (STU) { $('#inCls').value = STU.cls; $('#inSeat').value = STU.seat; $('#inName').value = STU.name; }
+}
+$('#btnLogin').onclick = () => {
+  const cls = $('#inCls').value.trim(), seat = $('#inSeat').value.trim(), name = $('#inName').value.trim();
+  if (!cls || !seat || !name) { $('#loginMsg').textContent = '請把班級、座號、姓名都填好喔！'; return; }
+  STU = { cls, seat: String(Number(seat) || seat), name }; store.set('student', STU);
+  $('#loginMsg').textContent = '';
+  goHome();
+};
+['#inCls', '#inSeat', '#inName'].forEach(s => $(s).addEventListener('keydown', e => { if (e.key === 'Enter') $('#btnLogin').click(); }));
+$('#btnLogout').onclick = () => { STU = null; store.del('student'); $('#inName').value = ''; $('#inSeat').value = ''; $('#hdrPts').hidden = true; show('login'); };
+
+/* ---------- 首頁 ---------- */
+function goHome() {
+  if (!STU) { show('login'); return; }
+  show('home');
+  $('#hello').textContent = '嗨，' + STU.name + '！';
+  const hour = new Date().getHours();
+  $('#helloSub').textContent = STU.cls + ' 班 ' + STU.seat + ' 號・' + (hour < 14 ? '午休也來練一下，超棒！' : '放學前再衝一波！');
+  renderPills(); renderStats(); loadLeaderboard();
+}
+function renderPills() {
+  const wbN = Object.keys(getWB()).filter(id => wordById(id)).length;
+  const units = Object.keys(UNITS);
+  if (!units.includes(SEL.unit) && SEL.unit !== '__all' && SEL.unit !== '__wrong') SEL.unit = units[0];
+  const items = units.map(k => [k, k + (UNITS[k].title ? '｜' + UNITS[k].title : '') + '（' + UNITS[k].words.length + '）'])
+    .concat([['__all', '全部單元'], ['__wrong', '📕 我的錯題本（' + wbN + '）']]);
+  $('#unitPills').innerHTML = items.map(([k, t]) => `<button class="pill ${SEL.unit === k ? 'on' : ''}" data-unit="${esc(k)}">${esc(t)}</button>`).join('');
+  $$('#unitPills .pill').forEach(b => b.onclick = () => { SEL.unit = b.dataset.unit; store.set('unitSel', SEL.unit); renderPills(); });
+  const counts = [[10, '10 題'], [20, '20 題'], ['all', '全部']];
+  $('#countPills').innerHTML = counts.map(([v, t]) => `<button class="pill ${SEL.count === v ? 'on' : ''}" data-c="${v}">${t}</button>`).join('');
+  $$('#countPills .pill').forEach(b => b.onclick = () => { SEL.count = b.dataset.c === 'all' ? 'all' : Number(b.dataset.c); store.set('countSel', SEL.count); renderPills(); });
+}
+function renderStats() {
+  const st = getStat();
+  $('#stPts').textContent = st.points; $('#stToday').textContent = st.days[today()] || 0;
+  $('#stWrong').textContent = Object.keys(getWB()).filter(id => wordById(id)).length;
+  $('#hdrPts').hidden = false; $('#hdrPts').textContent = '⭐ ' + st.points;
+}
+$$('[data-lb]').forEach(b => b.onclick = () => { LB_SCOPE = b.dataset.lb; $$('[data-lb]').forEach(x => x.classList.toggle('on', x === b)); loadLeaderboard(); });
+async function loadLeaderboard() {
+  const box = $('#lbBox');
+  if (!hasBackend()) { box.innerHTML = '連上雲端後就能看到排行榜（請老師到「設定」填寫網址）。'; return; }
+  box.textContent = '載入中…';
+  try {
+    const r = await api('leaderboard', { days: 7, cls: LB_SCOPE === 'cls' ? STU.cls : '' });
+    if (!r.ok) throw new Error(r.error);
+    if (!r.list.length) { box.innerHTML = '這週還沒有人練習，搶第一名吧！🚀'; return; }
+    box.innerHTML = '<ol>' + r.list.map((p, i) => {
+      const me = String(p.cls) === String(STU.cls) && String(p.seat) === String(STU.seat) && p.name === STU.name;
+      return `<li class="${me ? 'me' : ''}"><span><span class="rk">${i + 1}</span>${esc(p.cls)}-${esc(p.seat)} ${esc(p.name)}</span><b>${p.points} 點</b></li>`;
+    }).join('') + '</ol>';
+  } catch (e) { box.textContent = '排行榜暫時載入失敗。'; }
+}
+$$('.mode').forEach(b => b.onclick = () => startGame(b.dataset.mode));
+
+/* ---------- 遊戲共用 ---------- */
+function poolFor(sel) {
+  if (sel === '__all') return allWords();
+  if (sel === '__wrong') { const wb = getWB(); return allWords().filter(w => wb[w.id]); }
+  return (UNITS[sel] || { words: [] }).words;
+}
+function unitLabel(sel) { return sel === '__all' ? '全部單元' : sel === '__wrong' ? '錯題本' : sel; }
+function startGame(mode, preset, label) {
+  const pool = poolFor(SEL.unit);
+  let words = preset ? shuffle(preset) : shuffle(pool).slice(0, SEL.count === 'all' ? pool.length : SEL.count);
+  if (!words.length) { toast(SEL.unit === '__wrong' ? '錯題本是空的，太厲害了！先選其他單元吧 🎉' : '這個範圍沒有單字'); return; }
+  if ((mode === 'listen' || mode === 'match') && words.length < 2) { toast('配對至少需要 2 個單字，換個模式吧！'); return; }
+  G = { mode, words, idx: 0, correct: 0, points: 0, combo: 0, maxCombo: 0, wrong: new Map(), right: new Set(), t0: Date.now(), label: label || unitLabel(SEL.unit), locked: false };
+  show('game');
+  $('#gTitle').textContent = { listen: '🎧 ', match: '🧩 ', spell: '✍️ ', choice: '✅ ' }[mode] + MODE_NAME[mode];
+  clearInterval(window._tick);
+  window._tick = setInterval(() => { if (G) $('#gTime').textContent = mmss(Math.round((Date.now() - G.t0) / 1000)); }, 1000);
+  $('#gTime').textContent = '0:00';
+  if (mode === 'listen' || mode === 'match') initMatch(); else if (mode === 'spell') renderSpell(); else renderChoice();
+  hud();
+}
+function hud() {
+  const total = G.words.length, done = (G.mode === 'listen' || G.mode === 'match') ? G.done : G.idx;
+  $('#gProg').textContent = Math.min(done + (G.mode === 'spell' || G.mode === 'choice' ? 1 : 0), total) + ' / ' + total;
+  $('#gBar').style.width = (done / total * 100) + '%';
+  $('#gPts').textContent = G.points;
+  $('#gCombo').hidden = G.combo < 2; $('#gCombo').textContent = '🔥 ' + G.combo + ' 連對';
+}
+function gotRight(w, el) {
+  G.correct++; G.right.add(w.id); G.combo++; G.maxCombo = Math.max(G.maxCombo, G.combo);
+  const pts = 10 + Math.min(G.combo - 1, 5) * 2; G.points += pts; floatPts(pts, el); sfx(true);
+  if ([3, 5, 10, 15, 20].includes(G.combo)) toast('🔥 ' + G.combo + ' 連對！太強了！');
+  hud();
+}
+function gotWrong(w) { if (!G.wrong.has(w.id)) G.wrong.set(w.id, w); G.combo = 0; sfx(false); hud(); }
+function nextQ() {
+  G.idx++; G.locked = false;
+  if (G.idx >= G.words.length) { finish(); return; }
+  hud(); G.mode === 'spell' ? renderSpell() : renderChoice();
+}
+function twoStep(btn, ask, fn) {
+  if (btn.dataset.armed) { delete btn.dataset.armed; btn.textContent = btn.dataset.orig; fn(); return; }
+  btn.dataset.orig = btn.textContent; btn.dataset.armed = '1'; btn.textContent = ask;
+  setTimeout(() => { if (btn.dataset.armed) { delete btn.dataset.armed; btn.textContent = btn.dataset.orig; } }, 3000);
+}
+$('#btnQuit').onclick = e => twoStep(e.currentTarget, '再按一次離開（不記錄）', () => { clearInterval(window._tick); if ('speechSynthesis' in window) speechSynthesis.cancel(); G = null; goHome(); });
+
+/* ---------- 模式一、二：配對（聽力／中英）---------- */
+function initMatch() { G.rounds = chunkRounds(G.words, 5); G.r = 0; G.done = 0; renderRound(); }
+function renderRound() {
+  const round = G.rounds[G.r], listen = G.mode === 'listen';
+  G.matched = 0; G.roundWrong = new Set(); G.selL = null; G.selR = null;
+  const L = shuffle(round), R = shuffle(round);
+  $('#area').innerHTML = `
+    <p class="hint">第 ${G.r + 1} / ${G.rounds.length} 回合・${listen ? '按 🔊 聽發音，再點選對應的英文單字' : '點選英文單字，再點選相符的中文意思'}</p>
+    <div class="match">
+      <div class="col">${L.map((w, i) => `<button class="tile ${listen ? 'spk' : ''}" data-side="L" data-id="${esc(w.id)}">${listen ? `<span class="big">🔊</span><span class="num">${i + 1}</span>` : `<span class="en">${esc(w.w)}</span>`}</button>`).join('')}</div>
+      <div class="col">${R.map(w => `<button class="tile" data-side="R" data-id="${esc(w.id)}">${listen ? `<span class="en">${esc(w.w)}</span>` : `<span class="zh">${esc(w.zh)}</span><small>${esc(w.pos)}</small>`}</button>`).join('')}</div>
+    </div>`;
+  $$('#area .tile').forEach(b => b.onclick = () => onTile(b));
+  if (listen) setTimeout(() => { const f = $('#area .tile[data-side="L"]'); if (f) { f.classList.add('sel'); G.selL = f; speak(wordById(f.dataset.id).w); } }, 350);
+}
+function onTile(b) {
+  if (b.classList.contains('done')) return;
+  const w = wordById(b.dataset.id);
+  if (b.dataset.side === 'L') { G.selL = b; speak(w.w); } else { G.selR = b; }
+  $$('#area .tile').forEach(t => t.classList.toggle('sel', t === G.selL || t === G.selR));
+  if (G.selL && G.selR) checkPair();
+}
+function checkPair() {
+  const L = G.selL, R = G.selR; G.selL = G.selR = null;
+  $$('#area .tile').forEach(t => t.classList.remove('sel'));
+  const w = wordById(L.dataset.id);
+  if (L.dataset.id === R.dataset.id) {
+    L.classList.add('done'); R.classList.add('done');
+    if (G.mode === 'listen') L.innerHTML = `<span class="en">✔ ${esc(w.w)}</span><small>${esc(w.zh)}</small>`;
+    else R.innerHTML = `<span class="zh">✔ ${esc(w.zh)}</span><small>${esc(w.w)}</small>`;
+    G.done++; G.matched++;
+    if (!G.roundWrong.has(w.id)) gotRight(w, R); else { G.combo = 0; sfx(true); hud(); }
+    if (G.matched === G.rounds[G.r].length) {
+      setTimeout(() => { G.r++; if (G.r >= G.rounds.length) finish(); else renderRound(); }, 800);
+    } else if (G.mode === 'listen') {
+      // 自動選下一個還沒配對的喇叭，節奏更順
+      setTimeout(() => { const n = $('#area .tile[data-side="L"]:not(.done)'); if (n && !G.selL) { G.selL = n; n.classList.add('sel'); speak(wordById(n.dataset.id).w); } }, 500);
+    }
+  } else {
+    G.roundWrong.add(w.id); gotWrong(w);
+    [L, R].forEach(t => { t.classList.add('bad', 'shake'); setTimeout(() => t.classList.remove('bad', 'shake'), 450); });
+  }
+}
+
+/* ---------- 模式三：拼字練習（挖空填字母，h_sp_t_l）---------- */
+const VOWELS = 'aeiou';
+function renderSpell() {
+  const w = G.words[G.idx]; G.att = 0; G.hints = 0; G.locked = false;
+  const target = w.w.replace(/[.?!]+$/, '');
+  // 每個字元：固定顯示（子音、符號、空白）或挖空（母音 a e i o u）
+  let cells = [...target].map(ch => ({ ch, blank: VOWELS.includes(ch.toLowerCase()), val: '' }));
+  if (!cells.some(c => c.blank)) { // 沒有母音（如 by）：挖掉最後一個字母
+    const idx = cells.map((c, i) => /[a-z]/i.test(c.ch) ? i : -1).filter(i => i >= 0).pop();
+    if (idx != null) cells[idx].blank = true;
+  }
+  G.target = target; G.cells = cells; G.cur = cells.findIndex(c => c.blank);
+  const need = [...new Set(cells.filter(c => c.blank).map(c => c.ch.toLowerCase()))];
+  G.keys = [...new Set([...VOWELS, ...need])].sort();
+  $('#area').innerHTML = `
+    <div class="qcard">
+      <div class="row center"><button class="spkbtn" id="sp1" title="播放">🔊</button></div>
+      <div class="zh-big">${esc(w.zh)}</div>
+      <div class="meta">${esc(w.pos)} ${w.kk ? `<span class="kk">[${esc(w.kk)}]</span>` : ''}</div>
+      <div class="label" style="margin-top:12px">點空格，再點下面的字母，把單字補完整</div>
+      <div class="slots" id="slots"></div>
+      <div class="keypad" id="keypad">${G.keys.map(k => `<button class="key" data-k="${k}">${k}</button>`).join('')}<button class="key del" id="kDel" title="刪除">⌫</button></div>
+      <div class="msg" id="spMsg"></div>
+      <div id="spSent"></div>
+      <div class="row center" style="margin-top:8px"><button class="btn ghost" id="spHint">💡 提示一個字母</button><button class="btn primary" id="spOk">送出 ✔</button></div>
+    </div>`;
+  $('#sp1').onclick = () => speak(w.w);
+  $$('#keypad .key[data-k]').forEach(b => b.onclick = () => putLetter(b.dataset.k));
+  $('#kDel').onclick = delLetter;
+  $('#spOk').onclick = spellSubmit; $('#spHint').onclick = spellHint;
+  renderSlots();
+  setTimeout(() => speak(w.w), 300);
+}
+function renderSlots(state) {
+  $('#slots').innerHTML = G.cells.map((c, i) => {
+    if (c.ch === ' ') return '<span class="gap"></span>';
+    if (!c.blank) return `<span class="slot fixed">${esc(c.ch)}</span>`;
+    const cls = ['slot', 'blankslot', c.val ? 'filled' : '', i === G.cur && !G.locked ? 'cur' : '', state === 'ok' ? 'ok' : '', c.bad ? 'badslot' : '', c.shown ? 'shown' : ''].join(' ');
+    return `<button class="${cls}" data-i="${i}">${esc(c.val)}</button>`;
+  }).join('');
+  $$('#slots .blankslot').forEach(b => b.onclick = () => { if (G.locked) return; G.cur = Number(b.dataset.i); renderSlots(); });
+}
+function nextBlank(from) {
+  const n = G.cells.length;
+  for (let k = 1; k <= n; k++) { const i = (from + k) % n; if (G.cells[i].blank && !G.cells[i].val) return i; }
+  return -1;
+}
+function putLetter(k) {
+  if (G.locked || G.cur < 0) return;
+  const c = G.cells[G.cur]; c.bad = false;
+  c.val = /[A-Z]/.test(c.ch) ? k.toUpperCase() : k;
+  const nb = nextBlank(G.cur);
+  if (nb === -1) { renderSlots(); spellSubmit(); return; } // 全部填完自動檢查
+  G.cur = nb; renderSlots();
+}
+function delLetter() {
+  if (G.locked) return;
+  const c = G.cells[G.cur];
+  if (c && c.val) { c.val = ''; c.bad = false; }
+  else { // 往前找上一個已填的空格
+    for (let i = G.cur - 1; i >= 0; i--) if (G.cells[i].blank) { G.cur = i; G.cells[i].val = ''; G.cells[i].bad = false; break; }
+  }
+  renderSlots();
+}
+function showSentence(w) {
+  const p = parseEx(w); if (!p) return;
+  $('#spSent').innerHTML = `<div class="sent">${esc(p.before)}<span class="blank">${esc(p.form)}</span>${esc(p.after)}</div><div class="sent-zh">${esc(w.exZh)}</div>`;
+}
+function spellDone(w) {
+  G.locked = true; showSentence(w); speak(w.w);
+  $('#spOk').textContent = '下一題 →'; $('#spHint').hidden = true; $('#keypad').hidden = true;
+}
+function spellSubmit() {
+  const w = G.words[G.idx], msg = $('#spMsg');
+  if (G.locked) { nextQ(); return; }
+  const blanks = G.cells.filter(c => c.blank);
+  if (blanks.some(c => !c.val)) { msg.className = 'msg no'; msg.textContent = '還有空格沒填喔！'; G.cur = G.cells.findIndex(c => c.blank && !c.val); renderSlots(); return; }
+  const ok = blanks.every(c => c.val.toLowerCase() === c.ch.toLowerCase());
+  if (ok) {
+    if (G.att === 0 && G.hints === 0) { gotRight(w, $('#slots')); msg.className = 'msg ok'; msg.textContent = '✅ 完全正確！'; }
+    else { gotWrong(w); G.points += 4; hud(); msg.className = 'msg ok'; msg.textContent = '👍 拼對了！（用了提示或第二次才對，先放進錯題本）'; }
+    G.locked = true; renderSlots('ok'); spellDone(w);
+    setTimeout(() => { if (G && G.locked && G.words[G.idx] === w) nextQ(); }, 1800);
+    return;
+  }
+  G.att++;
+  const slotsEl = $('#slots'); slotsEl.classList.add('shake'); setTimeout(() => slotsEl.classList.remove('shake'), 400);
+  if (G.att >= 2) {
+    gotWrong(w);
+    G.cells.forEach(c => { if (c.blank) { if (c.val.toLowerCase() !== c.ch.toLowerCase()) c.shown = true; c.val = c.ch; c.bad = false; } });
+    G.locked = true; renderSlots();
+    msg.className = 'msg no'; msg.innerHTML = '正確答案是：<b style="font-size:24px">' + esc(G.target) + '</b>';
+    spellDone(w);
+  } else {
+    sfx(false); G.combo = 0; hud();
+    // 錯的格子標紅並清空，對的保留
+    G.cells.forEach(c => { if (c.blank && c.val.toLowerCase() !== c.ch.toLowerCase()) { c.val = ''; c.bad = true; } });
+    G.cur = G.cells.findIndex(c => c.blank && !c.val); renderSlots();
+    msg.className = 'msg no'; msg.textContent = '❌ 紅色的格子不對，再聽一次試試看 💪'; speak(w.w);
+  }
+}
+function spellHint() {
+  if (G.locked) return;
+  const i = G.cells.findIndex(c => c.blank && c.val.toLowerCase() !== c.ch.toLowerCase());
+  if (i < 0) return;
+  G.cells[i].val = G.cells[i].ch; G.cells[i].bad = false; G.hints++;
+  const nb = nextBlank(i); G.cur = nb === -1 ? i : nb; renderSlots();
+  if (nb === -1 && G.cells.every(c => !c.blank || c.val)) spellSubmit();
+}
+
+/* ---------- 模式四：單字選擇題 ---------- */
+function renderChoice() {
+  const w = G.words[G.idx], p = parseEx(w);
+  const pool = (UNITS[w.unit] || { words: allWords() }).words;
+  const types = p ? [0, 1, 2, 2] : [0, 1], t = pick(types);
+  let prompt, opts;
+  if (t === 0) {
+    opts = shuffle([w, ...pickDistractors(w, pool, 3, x => x.zh)]).map(x => ({ id: x.id, label: x.zh }));
+    prompt = `<div class="label">這個英文是什麼意思？</div><div class="en-big">${esc(w.w)} <button class="spk-inline" id="chSpk">🔊</button></div><div class="meta">${esc(w.pos)} ${w.kk ? `<span class="kk">[${esc(w.kk)}]</span>` : ''}</div>`;
+  } else if (t === 1) {
+    opts = shuffle([w, ...pickDistractors(w, pool, 3, x => norm(x.w))]).map(x => ({ id: x.id, label: x.w }));
+    prompt = `<div class="label">哪一個英文是這個意思？</div><div class="zh-big">${esc(w.zh)}</div><div class="meta">${esc(w.pos)}</div>`;
+  } else {
+    const sp = pool.filter(x => parseEx(x));
+    opts = shuffle([w, ...pickDistractors(w, sp, 3, x => norm(formOf(x)))]).map(x => ({ id: x.id, label: formOf(x) }));
+    prompt = `<div class="label">選出最適合填入空格的字</div><div class="sent big" id="chSent">${esc(p.before)}<span class="blank">　　　</span>${esc(p.after)}</div><div class="sent-zh" id="chZh" hidden>${esc(w.exZh)}</div>`;
+  }
+  $('#area').innerHTML = `<div class="qcard">${prompt}
+    <div class="opts">${opts.map((o, i) => `<button class="opt" data-id="${esc(o.id)}"><span class="k">${i + 1}</span><span>${esc(o.label)}</span></button>`).join('')}</div>
+    <div class="msg" id="chMsg"></div>
+    <div class="row center"><button class="btn primary" id="chNext" hidden>下一題 ⏎</button></div></div>`;
+  G.chType = t;
+  $$('#area .opt').forEach(b => b.onclick = () => choose(b));
+  $('#chNext').onclick = nextQ;
+  if (t === 0) { $('#chSpk').onclick = () => speak(w.w); setTimeout(() => speak(w.w), 250); }
+}
+function choose(b) {
+  if (G.locked) return; G.locked = true;
+  const w = G.words[G.idx], ok = b.dataset.id === w.id;
+  $$('#area .opt').forEach(o => { o.disabled = true; if (o.dataset.id === w.id) o.classList.add('right'); });
+  if (G.chType === 2) { const p = parseEx(w); $('#chSent').innerHTML = esc(p.before) + `<span class="blank">${esc(p.form)}</span>` + esc(p.after); $('#chZh').hidden = false; }
+  const msg = $('#chMsg');
+  speak(G.chType === 2 ? w.ex : w.w);
+  if (ok) {
+    gotRight(w, b); msg.className = 'msg ok'; msg.textContent = '✅ 答對了！' + w.w + '＝' + w.zh;
+    setTimeout(() => { if (G && G.locked && G.words[G.idx] === w) nextQ(); }, G.chType === 2 ? 2200 : 1300);
+  } else {
+    b.classList.add('wrongpick'); gotWrong(w);
+    msg.className = 'msg no'; msg.textContent = '❌ 正確答案：' + w.w + '＝' + w.zh;
+    $('#chNext').hidden = false; $('#chNext').focus();
+  }
+}
+document.addEventListener('keydown', e => {
+  if (!G || $('#game').hidden) return;
+  if (G.mode === 'choice') {
+    if (!G.locked && /^[1-4]$/.test(e.key)) { const b = $$('#area .opt')[Number(e.key) - 1]; if (b) choose(b); }
+    else if (G.locked && e.key === 'Enter' && !$('#chNext').hidden) { e.preventDefault(); nextQ(); }
+  }
+  if (G.mode === 'spell') {
+    if (e.key === 'Enter') { e.preventDefault(); spellSubmit(); }
+    else if (e.key === 'Backspace') { e.preventDefault(); delLetter(); }
+    else if (/^[a-z]$/i.test(e.key) && G.keys && G.keys.includes(e.key.toLowerCase())) putLetter(e.key.toLowerCase());
+  }
+});
+
+/* ---------- 結算與上傳 ---------- */
+function finish() {
+  clearInterval(window._tick);
+  const g = G; G = null;
+  const total = g.words.length, acc = Math.round(g.correct / total * 100), dur = Math.round((Date.now() - g.t0) / 1000);
+  // 錯題本：答錯 +1，答對 -1
+  const wb = getWB();
+  g.wrong.forEach((w, id) => { wb[id] = (wb[id] || 0) + 1; });
+  g.right.forEach(id => { if (wb[id]) { wb[id]--; if (wb[id] <= 0) delete wb[id]; } });
+  setWB(wb);
+  const st = getStat(); st.points += g.points; st.days[today()] = (st.days[today()] || 0) + 1; setStat(st);
+
+  const stars = acc >= 90 ? 3 : acc >= 70 ? 2 : acc >= 50 ? 1 : 0;
+  $('#rStars').innerHTML = [1, 2, 3].map(i => `<span class="${i <= stars ? '' : 'off'}">⭐</span>`).join('');
+  $('#rTitle').textContent = acc === 100 ? '全對！你是單字王 👑' : acc >= 90 ? '太厲害了！🎉' : acc >= 70 ? '很不錯，繼續加油！💪' : acc >= 50 ? '有進步空間，再練一次會更好！' : '別灰心，把錯的單字再練一次吧！';
+  $('#rSub').textContent = MODE_NAME[g.mode] + '・' + g.label + (g.maxCombo >= 3 ? '・最高 ' + g.maxCombo + ' 連對 🔥' : '');
+  $('#rAcc').textContent = acc + '%'; $('#rCorrect').textContent = g.correct + '/' + total;
+  $('#rPts').textContent = '+' + g.points; $('#rTime').textContent = mmss(dur);
+  const wl = [...g.wrong.values()];
+  $('#rWrongBox').hidden = !wl.length; $('#btnRetryWrong').hidden = !wl.length || (wl.length < 2 && (g.mode === 'listen' || g.mode === 'match'));
+  $('#rWrong').innerHTML = wl.map(w => `<li><button class="spk-inline" data-say="${esc(w.w)}">🔊</button><b>${esc(w.w)}</b><span class="kk muted">${w.kk ? '[' + esc(w.kk) + ']' : ''}</span><span>${esc(w.pos)} ${esc(w.zh)}</span></li>`).join('');
+  $$('#rWrong [data-say]').forEach(b => b.onclick = () => speak(b.dataset.say));
+  $('#btnRetryWrong').onclick = () => startGame(g.mode, wl, g.label.replace(/（錯題重練）$/, '') + '（錯題重練）');
+  $('#btnAgain').onclick = () => startGame(g.mode);
+  show('result');
+  if (acc >= 80) confetti(); sfx(true);
+
+  const record = {
+    cls: STU.cls, seat: STU.seat, name: STU.name, unit: g.label, mode: MODE_NAME[g.mode],
+    total, correct: g.correct, accuracy: acc, points: g.points, duration: dur, maxCombo: g.maxCombo,
+    wrongWords: wl.map(w => w.w).join(', '), wrongList: wl.map(w => ({ unit: w.unit, w: w.w, zh: w.zh })),
+    clientTime: new Date().toISOString()
+  };
+  const q = store.get('pending', []); q.push(record); store.set('pending', q);
+  const status = $('#rStatus');
+  if (!hasBackend()) { status.textContent = '📴 尚未連上雲端，成績先存在這台電腦，連線後會自動補傳。'; return; }
+  status.textContent = '☁️ 上傳成績中…';
+  flushPending().then(r => {
+    if (r.left === 0) { status.textContent = '✅ 成績已記錄到老師的試算表' + (r.sent > 1 ? '（含補傳 ' + (r.sent - 1) + ' 筆）' : ''); setNet('ok'); }
+    else { status.textContent = '⚠️ 上傳失敗，已暫存 ' + r.left + ' 筆，下次會自動補傳。'; setNet('err'); }
+  });
+}
+$('#btnHome').onclick = goHome;
+
+/* ---------- 設定 ---------- */
+function openSettings() {
+  $('#mute').checked = !!store.get('mute', false);
+  $('#urlBox').hidden = !!IN_GAS; $('#gasUrl').value = gasUrl(); $('#urlMsg').textContent = '';
+}
+$('#mute').onchange = e => store.set('mute', e.target.checked);
+$('#btnSaveUrl').onclick = async () => {
+  const u = $('#gasUrl').value.trim(), m = $('#urlMsg');
+  if (u && !/^https:\/\/script\.google\.com\/.+\/exec/.test(u)) { m.textContent = '❌ 網址格式不對，應該是 https://script.google.com/macros/s/…/exec'; return; }
+  store.set('gasUrl', u);
+  if (!u) { m.textContent = '已清除，改用離線模式'; setNet('off'); return; }
+  m.textContent = '測試中…';
+  try { const r = await api('ping'); if (!r.ok) throw 0; m.textContent = '✅ 連線成功！'; setNet('ok'); refreshWords(); }
+  catch (e) { m.textContent = '❌ 連不上。請確認已部署為網頁應用程式，存取權設為「所有人」。'; setNet('err'); }
+};
+
+/* ---------- 教師專區 ---------- */
+let TPW = '', TDATA = null, TSORT = { k: 'cls', dir: 1 };
+$('#btnTLogin').onclick = () => teacherLoad($('#tPw').value);
+$('#tPw').addEventListener('keydown', e => { if (e.key === 'Enter') $('#btnTLogin').click(); });
+$('#btnTReload').onclick = () => teacherLoad(TPW);
+$('#tDays').onchange = () => teacherLoad(TPW);
+$('#tCls').onchange = renderDash;
+$('#btnTOut').onclick = () => { TPW = ''; TDATA = null; $('#tDash').hidden = true; $('#tLogin').hidden = false; $('#tPw').value = ''; };
+async function teacherLoad(pw) {
+  const m = $('#tMsg');
+  if (!hasBackend()) { m.textContent = '尚未連上雲端。請先到「設定」貼上 Apps Script 網址。'; return; }
+  m.textContent = '載入中…';
+  try {
+    const r = await api('teacherData', { pw, days: Number($('#tDays').value) });
+    if (!r.ok) throw new Error(r.error);
+    TPW = pw; TDATA = r; m.textContent = '';
+    $('#tLogin').hidden = true; $('#tDash').hidden = false;
+    const classes = [...new Set(r.records.map(x => String(x[1])))].sort();
+    const cur = $('#tCls').value;
+    $('#tCls').innerHTML = '<option value="">全部班級</option>' + classes.map(c => `<option ${c === cur ? 'selected' : ''}>${esc(c)}</option>`).join('');
+    if (r.sheetUrl) { $('#tSheetLink').href = r.sheetUrl; $('#tSheetLink').hidden = false; }
+    renderDash();
+  } catch (e) { m.textContent = '❌ ' + (e.message || '載入失敗'); if (!$('#tDash').hidden) toast('載入失敗：' + (e.message || '')); }
+}
+function renderDash() {
+  if (!TDATA) return;
+  const cls = $('#tCls').value;
+  const rec = TDATA.records.filter(r => !cls || String(r[1]) === cls);
+  const wr = TDATA.wrong.filter(r => !cls || String(r[1]) === cls);
+  // [時間,班級,座號,姓名,單元,模式,題數,答對,正確率,得分,用時,最高連擊,錯誤單字]
+  const by = {};
+  rec.forEach(r => {
+    const k = r[1] + '|' + r[2] + '|' + r[3];
+    const o = by[k] || (by[k] = { cls: String(r[1]), seat: String(r[2]), name: String(r[3]), n: 0, total: 0, correct: 0, dur: 0, points: 0, last: '' });
+    o.n++; o.total += +r[6] || 0; o.correct += +r[7] || 0; o.dur += +r[10] || 0; o.points += +r[9] || 0; if (String(r[0]) > o.last) o.last = String(r[0]);
+  });
+  const stu = Object.values(by).map(o => Object.assign(o, { acc: o.total ? Math.round(o.correct / o.total * 100) : 0 }));
+  const totQ = stu.reduce((a, o) => a + o.total, 0), totC = stu.reduce((a, o) => a + o.correct, 0), totD = stu.reduce((a, o) => a + o.dur, 0);
+  $('#tKpis').innerHTML = [
+    [rec.length, '練習人次'], [stu.length, '參與學生'], [(totQ ? Math.round(totC / totQ * 100) : 0) + '%', '平均正確率'], [Math.round(totD / 60) + ' 分', '總練習時間']
+  ].map(([v, t]) => `<div class="stat"><b>${v}</b><span>${t}</span></div>`).join('');
+  const tag = a => `<span class="tag ${a < 60 ? 'low' : a < 80 ? 'mid' : 'hi'}">${a}%</span>`;
+  const cols = [['cls', '班級'], ['seat', '座號'], ['name', '姓名'], ['n', '練習次數'], ['total', '總題數'], ['acc', '正確率'], ['dur', '練習時間'], ['points', '點數'], ['last', '最近練習']];
+  stu.sort((a, b) => {
+    const k = TSORT.k; let x = a[k], y = b[k];
+    if (k === 'seat') { x = Number(x) || 0; y = Number(y) || 0; }
+    if (k === 'cls' && x === y) return (Number(a.seat) - Number(b.seat)) * TSORT.dir;
+    return (x > y ? 1 : x < y ? -1 : 0) * TSORT.dir;
+  });
+  $('#tStu').innerHTML = '<thead><tr>' + cols.map(([k, t]) => `<th data-k="${k}">${t}${TSORT.k === k ? (TSORT.dir > 0 ? ' ▲' : ' ▼') : ''}</th>`).join('') + '</tr></thead><tbody>' +
+    (stu.length ? stu.map(o => `<tr><td>${esc(o.cls)}</td><td>${esc(o.seat)}</td><td>${esc(o.name)}</td><td>${o.n}</td><td>${o.total}</td><td>${tag(o.acc)}</td><td>${mmss(o.dur)}</td><td>${o.points}</td><td>${esc(o.last)}</td></tr>`).join('') : '<tr><td colspan="9" class="muted">這段期間還沒有紀錄</td></tr>') + '</tbody>';
+  $$('#tStu th').forEach(th => th.onclick = () => { const k = th.dataset.k; TSORT = { k, dir: TSORT.k === k ? -TSORT.dir : (['n', 'total', 'acc', 'dur', 'points', 'last'].includes(k) ? -1 : 1) }; renderDash(); });
+  // 常錯單字 [時間,班級,座號,姓名,單元,模式,單字,中文]
+  const miss = {};
+  wr.forEach(r => { const k = r[6] + '｜' + r[7]; miss[k] = (miss[k] || 0) + 1; });
+  const top = Object.entries(miss).sort((a, b) => b[1] - a[1]).slice(0, 15), mx = top.length ? top[0][1] : 1;
+  $('#tMiss').innerHTML = top.length ? top.map(([k, n]) => { const [w, zh] = k.split('｜'); return `<div class="missbar"><span><b>${esc(w)}</b> <span class="muted">${esc(zh)}</span></span><i style="width:${Math.max(6, n / mx * 100)}%"></i><b>${n}</b></div>`; }).join('') : '<div class="muted">還沒有錯題資料</div>';
+  // 各模式
+  const md = {};
+  rec.forEach(r => { const o = md[r[5]] || (md[r[5]] = { n: 0, t: 0, c: 0 }); o.n++; o.t += +r[6] || 0; o.c += +r[7] || 0; });
+  $('#tMode').innerHTML = '<thead><tr><th>模式</th><th>次數</th><th>平均正確率</th></tr></thead><tbody>' +
+    (Object.keys(md).length ? Object.entries(md).map(([k, o]) => `<tr><td>${esc(k)}</td><td>${o.n}</td><td>${tag(o.t ? Math.round(o.c / o.t * 100) : 0)}</td></tr>`).join('') : '<tr><td colspan="3" class="muted">尚無資料</td></tr>') + '</tbody>';
+  const recent = rec.slice().sort((a, b) => String(b[0]).localeCompare(String(a[0]))).slice(0, 40);
+  $('#tRecent').innerHTML = '<thead><tr><th>時間</th><th>班級</th><th>座號</th><th>姓名</th><th>單元</th><th>模式</th><th>答對</th><th>正確率</th><th>用時</th><th>錯誤單字</th></tr></thead><tbody>' +
+    recent.map(r => `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td><td>${esc(r[4])}</td><td>${esc(r[5])}</td><td>${r[7]}/${r[6]}</td><td>${tag(+r[8] || 0)}</td><td>${mmss(+r[10] || 0)}</td><td style="white-space:normal;min-width:180px">${esc(r[12])}</td></tr>`).join('') + '</tbody>';
+}
+$('#btnSeed').onclick = e => twoStep(e.currentTarget, '⚠️ 會覆蓋「單字庫」，再按一次確定', seedWords);
+async function seedWords() {
+  const rows = [];
+  Object.keys(RAW_UNITS).forEach(k => RAW_UNITS[k].list.forEach(a => rows.push([k, RAW_UNITS[k].title, a[0], a[1], a[2], a[3], a[4], a[5]])));
+  $('#seedMsg').textContent = '寫入中…';
+  try { const r = await api('seedWords', { pw: TPW, rows }); if (!r.ok) throw new Error(r.error); $('#seedMsg').textContent = '✅ 已寫入 ' + r.count + ' 個單字到「單字庫」工作表。'; }
+  catch (e) { $('#seedMsg').textContent = '❌ ' + (e.message || '寫入失敗'); }
+}
+
+/* ---------- 從試算表讀取單字庫（若有）---------- */
+async function refreshWords() {
+  if (!hasBackend()) return;
+  try {
+    const r = await api('getWords');
+    if (!r.ok || !r.words || !r.words.length) return;
+    const raw = {};
+    r.words.forEach(x => { const k = String(x[0]).trim(); if (!k || !x[2]) return; (raw[k] = raw[k] || { title: x[1] || '', list: [] }).list.push([x[2], x[3], x[4], x[5], x[6], x[7]]); });
+    if (Object.keys(raw).length) { loadUnits(raw); if (!$('#home').hidden) renderPills(); }
+  } catch (e) {}
+}
+
+/* ---------- 啟動 ---------- */
+(async function boot() {
+  loadUnits(RAW_UNITS);
+  initLogin();
+  if (STU) goHome(); else show('login');
+  if (!hasBackend()) { setNet('off'); return; }
+  setNet('checking');
+  try { const r = await api('ping'); setNet(r && r.ok ? 'ok' : 'err'); } catch (e) { setNet('err'); return; }
+  refreshWords();
+  flushPending();
+})();
+</script>
+</body>
+</html>
